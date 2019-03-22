@@ -7,6 +7,10 @@
     android:gravity="center"
     tools:context="com.puerto7070.epsilonv2.MainActivity">
 
+    <TextView
+        android:id="@+id/cronometro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/et_message"
         android:layout_width="match_parent"

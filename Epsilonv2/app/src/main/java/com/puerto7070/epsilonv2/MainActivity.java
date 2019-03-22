@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -68,6 +69,11 @@ public class MainActivity extends Activity implements Listener{
         my_sensor_proximidad.check_sensor(getApplicationContext());
 
         //endregion
+
+        TextView cronometro = findViewById(R.id.cronometro);
+
+        cronometro my_cronometro = new cronometro("Nombre del cronómetro", cronometro);
+        new Thread(my_cronometro).start();
     }
 
     //region Metodos NFC
