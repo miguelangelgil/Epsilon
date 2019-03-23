@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -8,37 +8,41 @@
     android:gravity="center"
     tools:context="com.puerto7070.epsilonv2.MainActivity">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
             android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="112dp"
+                android:layout_height="106dp"
+                tools:src="@tools:sample/avatars[15]" />
 
             <TextView
                 android:id="@+id/cronometro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <Button
+                android:id="@+id/create_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+" />
+
             <EditText
                 android:id="@+id/et_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_message" />
-
-            <Button
-                android:id="@+id/btn_write"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/message_write_tag" />
-
-            <Button
-                android:id="@+id/btn_read"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/message_read_tag" />
 
             <EditText
                 android:id="@+id/et_seconds"
@@ -48,7 +52,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/et_message"
+                android:id="@+id/et_message2"
                 android:layout_width="match_parent"
                 android:layout_height="82dp"
                 android:hint="@string/hint_message"
@@ -66,64 +70,105 @@
                 android:layout_height="wrap_content"
                 android:text="ShowInfo" />
 
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/create_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="task name"
-                android:visibility="gone"
-                android:id="@+id/task_name"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="project name"
-                android:visibility="gone"
-                android:id="@+id/project_name"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/create_task_button"
-                android:text="Create"
-            android:visibility="gone"
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cancel"
-                android:text="Cancel"
-                android:visibility="gone"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="task name"
+                    android:text=""
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/project_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="project name"
+                    android:text=""
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/create_task_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tasks_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
             </LinearLayout>
+
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/set_time_to_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/background_gradiante_white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="¿Has finalizado la tarea?" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/bt_task_finished"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Si" />
+
+                    <Button
+                        android:id="@+id/bt_task_not_finished"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="No" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/background_gradiante_white"
             android:orientation="vertical"
             android:translationX="-80dp"
@@ -149,7 +194,6 @@
                 android:text="HideInfo" />
 
         </LinearLayout>
+    </RelativeLayout>
 
-    </FrameLayout>
-
-</RelativeLayout>
+</ScrollView>
