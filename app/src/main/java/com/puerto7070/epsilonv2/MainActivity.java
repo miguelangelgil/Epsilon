@@ -73,12 +73,21 @@ public class MainActivity extends Activity implements Listener{
 
     //endregion
 
+
+    TextView cronometro = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        cronometro = findViewById(R.id.cronometro);
+        my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
+        //region Control de tiempo
+        //my_control_tiempo = new control_tiempo(my_cronometro, getApplicationContext());
+        //new Thread(my_control_tiempo).start();
 
+        //end Control de tiempo
 
         //region NFC
         initViews();
@@ -90,16 +99,18 @@ public class MainActivity extends Activity implements Listener{
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        my_sensor_proximidad = new sensor_proximidad(sensorManager, proximitySensor, proximitySensorListener );
+        my_sensor_proximidad = new sensor_proximidad(sensorManager, proximitySensor, proximitySensorListener,this );
         my_sensor_proximidad.check_sensor(getApplicationContext());
 
         //endregion
 
-        TextView cronometro = findViewById(R.id.cronometro);
 
-        my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this);
-        new Thread(my_cronometro).start();
+
+
+
     }
+    public void Active_cronometro(){ if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}
+    public void Desactive_cronometro(){my_cronometro.pause();}
 
     //region Metodos NFC
     private void initViews() {
@@ -208,6 +219,7 @@ public class MainActivity extends Activity implements Listener{
         my_sensor_proximidad.registerListener(getApplicationContext());
 
         //endregion
+        Desactive_cronometro();
 
     }
 
@@ -241,6 +253,7 @@ public class MainActivity extends Activity implements Listener{
             Ndef ndef = Ndef.get(tag);
 
             //TODO Qué pasa cuando se detecta el NFC
+            Active_cronometro();
 
 
             if (isDialogDisplayed) {

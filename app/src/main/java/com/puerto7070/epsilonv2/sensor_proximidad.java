@@ -14,13 +14,15 @@ public class sensor_proximidad {
     SensorManager sensorManager;
     Sensor proximitySensor;
     SensorEventListener proximitySensorListener;
+    MainActivity mainActivity;
     public static final String TAG="HOLA";
     //constructor de clase
-    public sensor_proximidad(SensorManager sensorManager, Sensor proximitySensor, SensorEventListener proximitySensorListener)
+    public sensor_proximidad(SensorManager sensorManager, Sensor proximitySensor, SensorEventListener proximitySensorListener, MainActivity mainActivity)
     {
         this.sensorManager = sensorManager;
         this.proximitySensor = proximitySensor;
         this.proximitySensorListener = proximitySensorListener;
+        this.mainActivity = mainActivity;
 
     }
     //detecta si el sensor de proximidad está disponible
@@ -46,11 +48,12 @@ public class sensor_proximidad {
                 // More code goes here
                 if (sensorEvent.values[0] < proximitySensor.getMaximumRange()) {
                     // Detected something nearby
-                    Toast toast =
+                    /*Toast toast =
                             Toast.makeText(my_context,
                                     "No tapes el sensor payaso", Toast.LENGTH_SHORT);
 
-                    toast.show();
+                    toast.show();*/
+                    mainActivity.Active_cronometro();
 
                 } else {
                     // Nothing is nearby
@@ -59,6 +62,7 @@ public class sensor_proximidad {
                                     "Gracias", Toast.LENGTH_SHORT);
 
                     toast.show();
+                    mainActivity.Desactive_cronometro();
 
                 }
             }
