@@ -1,11 +1,11 @@
 package com.puerto7070.epsilonv2;
 
 public class Task {
-    String name;
-    String project;
+    public String name;
+    public String project;
 
-   long hours_worked_on;
-   int  minutes_worked_on;
+   public long hours_worked_on;
+   public int  minutes_worked_on;
 
 
     Task(String _name, String _project)
