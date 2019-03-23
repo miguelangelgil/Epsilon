@@ -354,7 +354,7 @@ public class MainActivity extends Activity implements Listener{
         create_task            = (Button) findViewById(R.id.create_task_button);
         cancel                 = (Button) findViewById(R.id.cancel);
 
-        mBtRead.setOnClickListener(view -> showReadFragment())
+        mBtRead.setOnClickListener(view -> showReadFragment());
         open_create_task_menu.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
