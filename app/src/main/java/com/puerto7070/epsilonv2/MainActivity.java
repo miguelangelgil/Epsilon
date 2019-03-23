@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,7 +62,9 @@ public class MainActivity extends Activity implements Listener{
 
 
     cronometro my_cronometro;
-
+    View info_layout;
+    Button mBtShowInfo;
+    Button mBtHideInfo;
 
     //region Variables Proximidad
     SensorManager sensorManager = null;
@@ -74,12 +78,21 @@ public class MainActivity extends Activity implements Listener{
 
     //endregion
 
+
+    TextView cronometro = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        cronometro = findViewById(R.id.cronometro);
+        my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
+        //region Control de tiempo
+        //my_control_tiempo = new control_tiempo(my_cronometro, getApplicationContext());
+        //new Thread(my_control_tiempo).start();
 
+        //end Control de tiempo
 
         //region NFC
         initViews();
@@ -91,7 +104,7 @@ public class MainActivity extends Activity implements Listener{
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        my_sensor_proximidad = new sensor_proximidad(sensorManager, proximitySensor, proximitySensorListener );
+        my_sensor_proximidad = new sensor_proximidad(sensorManager, proximitySensor, proximitySensorListener,this );
         my_sensor_proximidad.check_sensor(getApplicationContext());
 
         //endregion
@@ -100,6 +113,8 @@ public class MainActivity extends Activity implements Listener{
 
 
     }
+    public void Active_cronometro(){ if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}
+    public void Desactive_cronometro(){my_cronometro.pause();}
 
     //region Metodos NFC
     private void initViews() {
@@ -114,6 +129,53 @@ public class MainActivity extends Activity implements Listener{
 
         mBtSetAlarm.setOnClickListener(view -> startCrono());//setAlarm(Integer.parseInt(mEtAlarmSeconds.getText().toString())));
 
+        info_layout = findViewById(R.id.info_layout);
+        mBtShowInfo = findViewById(R.id.bt_show_info);
+
+        mBtShowInfo.setOnClickListener(view -> showInfo());
+
+        mBtHideInfo = findViewById(R.id.bt_hide_info);
+
+        mBtHideInfo.setOnClickListener(view -> hideInfo());
+    }
+
+    private void showInfo()
+    {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_enter);
+        //use this to make it longer:  animation.setDuration(1000);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                info_layout.setVisibility(View.VISIBLE);
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //info_layout.setVisibility(View.GONE);
+            }
+        });
+        info_layout.startAnimation(animation);
+    }
+
+    private void hideInfo()
+    {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_exit);
+        //use this to make it longer:  animation.setDuration(1000);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                info_layout.setVisibility(View.GONE);
+            }
+        });
+        info_layout.startAnimation(animation);
     }
 
     private void initNFC(){
@@ -214,6 +276,7 @@ public class MainActivity extends Activity implements Listener{
         my_sensor_proximidad.registerListener(getApplicationContext());
 
         //endregion
+        Desactive_cronometro();
 
     }
 
@@ -247,6 +310,7 @@ public class MainActivity extends Activity implements Listener{
             Ndef ndef = Ndef.get(tag);
 
             //TODO Qué pasa cuando se detecta el NFC
+            Active_cronometro();
 
 
             if (isDialogDisplayed) {
