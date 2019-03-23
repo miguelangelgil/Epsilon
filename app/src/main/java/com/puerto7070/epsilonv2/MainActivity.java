@@ -2,6 +2,8 @@ package com.puerto7070.epsilonv2;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -78,8 +81,18 @@ public class MainActivity extends Activity implements Listener{
 
     //endregion
 
+    //region Variables CreateTask
+
+    public EditText task_name_edit_text;
+    public EditText project_name_edit_text;
+    public Button open_create_task_menu;
+    public Button create_task;
+    public Button cancel;
+
+//endregion
 
     TextView cronometro = null;
+    private boolean detectar_distancia_nfc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +101,7 @@ public class MainActivity extends Activity implements Listener{
         setContentView(R.layout.activity_main);
         cronometro = findViewById(R.id.cronometro);
         my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
+        my_cronometro.pause();
         //region Control de tiempo
         //my_control_tiempo = new control_tiempo(my_cronometro, getApplicationContext());
         //new Thread(my_control_tiempo).start();
@@ -111,10 +125,12 @@ public class MainActivity extends Activity implements Listener{
 
         tViCrono = findViewById(R.id.cronometro);
 
+        initCreateTaskViews();
+
 
     }
-    public void Active_cronometro(){ if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}
-    public void Desactive_cronometro(){my_cronometro.pause();}
+    public void Active_cronometro(){ if(detectar_distancia_nfc){if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}}
+    public void Desactive_cronometro(){if(detectar_distancia_nfc){my_cronometro.pause();}}
 
     //region Metodos NFC
     private void initViews() {
@@ -329,4 +345,64 @@ public class MainActivity extends Activity implements Listener{
 
         //endregion
     }
+
+    private void initCreateTaskViews(){
+        project_name_edit_text = (EditText) findViewById(R.id.project_name);
+        task_name_edit_text    = (EditText) findViewById(R.id.task_name);
+
+        open_create_task_menu  = (Button) findViewById(R.id.create_task);
+        create_task            = (Button) findViewById(R.id.create_task_button);
+        cancel                 = (Button) findViewById(R.id.cancel);
+
+        mBtRead.setOnClickListener(view -> showReadFragment())
+        open_create_task_menu.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                project_name_edit_text.setVisibility(View.VISIBLE);
+                project_name_edit_text.setText(null);
+                task_name_edit_text.setVisibility(View.VISIBLE);
+                task_name_edit_text.setText(null);
+                create_task.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                project_name_edit_text.setVisibility(View.GONE);
+                task_name_edit_text.setVisibility(View.GONE);
+                create_task.setVisibility(View.GONE);
+                cancel.setVisibility(View.GONE);
+            }
+        });
+
+        create_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String given_project_name = project_name_edit_text.getText().toString();
+                String given_task_name = task_name_edit_text.getText().toString();
+
+
+                //Checks if the message has anything.
+                if (given_project_name.length() == 0 || given_task_name.length() == 0) {
+                    return;
+                }
+
+                TaskManager.CreateTask(given_task_name, given_project_name);
+
+                //TODO Algo tiene que pasar en el layout para que se actualice con la nueva task creada
+
+                project_name_edit_text.setVisibility(View.GONE);
+                task_name_edit_text.setVisibility(View.GONE);
+                create_task.setVisibility(View.GONE);
+                cancel.setVisibility(View.GONE);
+
+            }
+        });
+
+
+
+    }
+
 }
