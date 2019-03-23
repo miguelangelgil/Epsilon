@@ -14,146 +14,281 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:adjustViewBounds="false"
-                android:background="@android:color/transparent"
-                tools:src="@drawable/iconprofile" />
-
-            <TextView
-                android:id="@+id/cronometro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/create_task"
-                android:layout_width="95dp"
-                android:layout_height="96dp"
-                android:layout_marginLeft="40dp"
-                android:height="20dp"
-                android:background="@drawable/nuevatareaboton"
-                android:minHeight="10dp"
-                android:text="+" />
-
-            <EditText
-                android:id="@+id/et_message2"
-                android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:hint="@string/hint_message"
-                android:inputType="number" />
-
-            <Button
-                android:id="@+id/bt_show_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ShowInfo" />
-
             <LinearLayout
-                android:id="@+id/new_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <EditText
-                    android:id="@+id/task_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="task name"
-                    android:text=""
-                    android:visibility="gone" />
-
-                <EditText
-                    android:id="@+id/project_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="project name"
-                    android:text=""
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/create_task_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Create"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancel"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tasks_layout"
+                android:id="@+id/set_time_to_task"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="project name"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="140dp"
+                android:background="@drawable/background_gradiante_white"
                 android:orientation="vertical"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/set_time_to_task"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="140dp"
-            android:background="@drawable/background_gradiante_white"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="¿Has finalizado la tarea?" />
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="¿Has finalizado la tarea?" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/bt_task_finished"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Si" />
+
+                        <Button
+                            android:id="@+id/bt_task_not_finished"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="No" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/bt_show_info"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:adjustViewBounds="false"
+                    android:background="@drawable/iconprofile" />
+
+                <Button
+                    android:id="@+id/create_task"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    android:height="20dp"
+                    android:background="@drawable/nuevatareaboton"
+                    android:minHeight="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/new_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:orientation="vertical"
+                    android:textAlignment="center"
+                    android:visibility="visible">
+
+                    <EditText
+                        android:id="@+id/project_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Project name"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/task_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Task name"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:visibility="visible" />
 
                     <Button
-                        android:id="@+id/bt_task_finished"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Si" />
+                        android:id="@+id/create_task_button"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="90dp"
+                        android:background="@drawable/enterboton"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center_vertical"
+                        android:text="Create"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
 
                     <Button
-                        android:id="@+id/bt_task_not_finished"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="No" />
+                        android:id="@+id/cancel"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/enterboton"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center_vertical"
+                        android:text="Cancel"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
+                <TextView
+                    android:id="@+id/cronometro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="00:00:00"
+                    android:textAlignment="center"
+                    android:textSize="80sp" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/raleway_medium"
+                    android:singleLine="true"
+                    android:text="Tasks"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <LinearLayout
+                    android:id="@+id/tasks_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="project name"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/greyy"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="PhysicsGame"
+                            android:textAlignment="center"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="Resolve merge conflicts"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="15m"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/greyy"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/de2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="PhysicsGame"
+                            android:textAlignment="center"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textViedd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="Create scenary"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/freg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="1h 20m"
+                            android:textAlignment="center" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_message2"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:hint="@string/hint_message"
+            android:inputType="number"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_message"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/et_seconds"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:hint="Seconds"
+            android:inputType="number"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/bt_seconds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SET ALARM (SECONDS)"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/info_layout"
@@ -181,19 +316,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="80dp"
-                        android:visibility="visible"
-                        tools:src="@drawable/iconprofile" />
+                        android:background="@drawable/iconprofile"
+                        android:visibility="visible" />
 
                     <ImageButton
                         android:id="@+id/imageButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_width="60dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:minWidth="50dp"
-                        android:minHeight="50dp"
-                        android:src="@drawable/campana" />
+                        android:background="@drawable/campana" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -211,6 +343,19 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/raleway_medium"
                     android:text="Pepa Suárez"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/ed234"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="305h"
+                    android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:visibility="visible" />
@@ -341,24 +486,6 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_message" />
-
-        <EditText
-            android:id="@+id/et_seconds"
-            android:layout_width="match_parent"
-            android:layout_height="82dp"
-            android:hint="Seconds"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/bt_seconds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SET ALARM (SECONDS)" />
     </RelativeLayout>
 
 </ScrollView>

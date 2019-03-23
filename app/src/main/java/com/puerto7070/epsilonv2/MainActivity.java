@@ -11,14 +11,20 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Debug;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -68,7 +74,7 @@ public class MainActivity extends Activity implements Listener{
 
     cronometro my_cronometro;
     View info_layout;
-    Button mBtShowInfo;
+    ImageButton mBtShowInfo;
     Button mBtHideInfo;
 
     //region Variables Proximidad
@@ -408,15 +414,22 @@ public class MainActivity extends Activity implements Listener{
 
 
     }
-    
+
     private LinearLayout CreateTaskView(String task, String project)
     {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
+        TextView sp= new TextView(this);
+        sp.setWidth(100);
+        sp.setHeight(50);
+        layout.addView(sp, 0);
         TextView name = new TextView(this);
         TextView projekt = new TextView(this);
         TextView hours = new TextView(this);
+        name.setBackgroundResource(R.color.greyy);
+        projekt.setBackgroundResource(R.color.greyy);
+        hours.setBackgroundResource(R.color.greyy);
 
         name.setTextColor(Color.BLACK);
         name.setTextSize(20);
@@ -424,12 +437,12 @@ public class MainActivity extends Activity implements Listener{
         projekt.setText(project);
         hours.setText(( String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).hours_worked_on) +
                 "h " + String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).minutes_worked_on) + "min"));
-
-
-        layout.addView(name,0);
-        layout.addView(projekt, 1);
-        layout.addView(hours, 2);
-        Log.d("EEEEEEEEEEE", String.valueOf(layout.getChildCount()));
+        projekt.setGravity(Gravity.CENTER);
+        name.setGravity(Gravity.CENTER);
+        hours.setGravity(Gravity.CENTER);
+        layout.addView(name,1);
+        layout.addView(projekt, 2);
+        layout.addView(hours, 3);
         return layout;
     }
 
