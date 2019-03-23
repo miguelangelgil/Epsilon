@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1066412397454",
+    "firebase_url": "https://epsilon-p7070.firebaseio.com",
+    "project_id": "epsilon-p7070",
+    "storage_bucket": "epsilon-p7070.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066412397454:android:fc305ef389a0578b",
+        "android_client_info": {
+          "package_name": "com.puerto7070.epsilonv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066412397454-r13cdf6odv21rhjo926kutcg3d29dhg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.puerto7070.epsilonv2",
+            "certificate_hash": "16c2b104a292681528e8d4f1b454f4b74efb628c"
+          }
+        },
+        {
+          "client_id": "1066412397454-5iaeckjhmovnvuub3a874a05v6ve4g47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.puerto7070.epsilonv2",
+            "certificate_hash": "627c586db2aafe75b237b634640f3b094220413e"
+          }
+        },
+        {
+          "client_id": "1066412397454-7chpu4k2vhvhbesrkj35ajv9h2e2bfuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_bM-UCG11xCc8_aZxhacBf_6Q4VrZwsA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066412397454-7chpu4k2vhvhbesrkj35ajv9h2e2bfuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

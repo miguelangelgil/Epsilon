@@ -1,4 +1,4 @@
-package com.puerto7070.epsilon;
+package com.puerto7070.epsilonv2;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class sensor_proximidad {
+
     SensorManager sensorManager;
     Sensor proximitySensor;
     SensorEventListener proximitySensorListener;
@@ -76,6 +77,7 @@ public class sensor_proximidad {
     {
         sensorManager.unregisterListener(proximitySensorListener);
     }
+
 
 
 }

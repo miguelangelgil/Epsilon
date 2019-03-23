@@ -1,4 +1,4 @@
-package com.puerto7070.epsilon;
+package com.puerto7070.epsilonv2;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.puerto7070.epsilon", appContext.getPackageName());
+        assertEquals("com.puerto7070.epsilonv2", appContext.getPackageName());
     }
 }
