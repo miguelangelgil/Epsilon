@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -63,6 +64,7 @@ public class MainActivity extends Activity implements Listener{
     private List<cronometro> cronometros;
     //endregion
 
+    private LinearLayout tasksView;
 
     cronometro my_cronometro;
     View info_layout;
@@ -137,10 +139,10 @@ public class MainActivity extends Activity implements Listener{
     //region Metodos NFC
     private void initViews() {
 
-        mEtMessage = (EditText) findViewById(R.id.et_message);
-        mBtRead = (Button) findViewById(R.id.btn_read);
+        tasksView = findViewById(R.id.tasks_layout);
 
-        mBtRead.setOnClickListener(view -> showReadFragment());
+        mEtMessage = (EditText) findViewById(R.id.et_message);
+
 
         mEtAlarmSeconds = (EditText) findViewById(R.id.et_seconds);
         mBtSetAlarm = (Button) findViewById(R.id.bt_seconds);
@@ -356,7 +358,6 @@ public class MainActivity extends Activity implements Listener{
         create_task            = (Button) findViewById(R.id.create_task_button);
         cancel                 = (Button) findViewById(R.id.cancel);
 
-        mBtRead.setOnClickListener(view -> showReadFragment());
         open_create_task_menu.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -392,6 +393,7 @@ public class MainActivity extends Activity implements Listener{
                 }
 
                 TaskManager.CreateTask(given_task_name, given_project_name);
+                tasksView.addView(CreateTaskView(given_task_name, given_project_name));
 
                 //TODO Algo tiene que pasar en el layout para que se actualice con la nueva task creada
 
@@ -405,6 +407,30 @@ public class MainActivity extends Activity implements Listener{
 
 
 
+    }
+    
+    private LinearLayout CreateTaskView(String task, String project)
+    {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        TextView name = new TextView(this);
+        TextView projekt = new TextView(this);
+        TextView hours = new TextView(this);
+
+        name.setTextColor(Color.BLACK);
+        name.setTextSize(20);
+        name.setText(task);
+        projekt.setText(project);
+        hours.setText(( String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).hours_worked_on) +
+                "h " + String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).minutes_worked_on) + "min"));
+
+
+        layout.addView(name,0);
+        layout.addView(projekt, 1);
+        layout.addView(hours, 2);
+        Log.d("EEEEEEEEEEE", String.valueOf(layout.getChildCount()));
+        return layout;
     }
 
 }
