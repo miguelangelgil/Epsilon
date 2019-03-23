@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="30dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,10 +35,12 @@
 
 
         <LinearLayout
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="200dp">
 
             <ProgressBar
                 android:id="@+id/login_progress"
@@ -48,11 +50,7 @@
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
-            <ScrollView
-                android:id="@+id/login_form"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal">
+
             <AutoCompleteTextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -61,12 +59,13 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="@drawable/bordeboton"/>
+                android:background="@drawable/bordeboton"
+                android:paddingLeft="20dp"/>
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
                 android:imeActionId="6"
                 android:imeActionLabel="@string/action_sign_in_short"
@@ -74,9 +73,11 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:background="@drawable/bordeboton"/>
+                android:background="@drawable/bordeboton"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"/>
 
-            <ImageButton
+            <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
@@ -84,15 +85,10 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
-                android:src="@drawable/enterboton"
                 android:background="@drawable/enterboton"/>
-            </ScrollView>
 
         </LinearLayout>
 
 
     </LinearLayout>
-
-
-        <!-- Login progress -->
 </LinearLayout>
