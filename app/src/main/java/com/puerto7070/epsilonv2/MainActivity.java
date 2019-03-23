@@ -2,6 +2,8 @@ package com.puerto7070.epsilonv2;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -80,6 +83,7 @@ public class MainActivity extends Activity implements Listener{
 
 
     TextView cronometro = null;
+    private boolean detectar_distancia_nfc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class MainActivity extends Activity implements Listener{
         setContentView(R.layout.activity_main);
         cronometro = findViewById(R.id.cronometro);
         my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
+        my_cronometro.pause();
         //region Control de tiempo
         //my_control_tiempo = new control_tiempo(my_cronometro, getApplicationContext());
         //new Thread(my_control_tiempo).start();
@@ -113,8 +118,8 @@ public class MainActivity extends Activity implements Listener{
 
 
     }
-    public void Active_cronometro(){ if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}
-    public void Desactive_cronometro(){my_cronometro.pause();}
+    public void Active_cronometro(){ if(detectar_distancia_nfc){if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}}
+    public void Desactive_cronometro(){if(detectar_distancia_nfc){my_cronometro.pause();}}
 
     //region Metodos NFC
     private void initViews() {
