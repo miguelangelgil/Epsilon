@@ -78,6 +78,15 @@ public class MainActivity extends Activity implements Listener{
 
     //endregion
 
+    //region Variables CreateTask
+
+    public EditText task_name_edit_text;
+    public EditText project_name_edit_text;
+    public Button open_create_task_menu;
+    public Button create_task;
+    public Button cancel;
+
+//endregion
 
     TextView cronometro = null;
 
@@ -110,6 +119,8 @@ public class MainActivity extends Activity implements Listener{
         //endregion
 
         tViCrono = findViewById(R.id.cronometro);
+
+        initCreateTaskViews();
 
 
     }
@@ -329,4 +340,64 @@ public class MainActivity extends Activity implements Listener{
 
         //endregion
     }
+
+    private void initCreateTaskViews(){
+        project_name_edit_text = (EditText) findViewById(R.id.project_name);
+        task_name_edit_text    = (EditText) findViewById(R.id.task_name);
+
+        open_create_task_menu  = (Button) findViewById(R.id.create_task);
+        create_task            = (Button) findViewById(R.id.create_task_button);
+        cancel                 = (Button) findViewById(R.id.cancel);
+
+        mBtRead.setOnClickListener(view -> showReadFragment())
+        open_create_task_menu.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                project_name_edit_text.setVisibility(View.VISIBLE);
+                project_name_edit_text.setText(null);
+                task_name_edit_text.setVisibility(View.VISIBLE);
+                task_name_edit_text.setText(null);
+                create_task.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                project_name_edit_text.setVisibility(View.GONE);
+                task_name_edit_text.setVisibility(View.GONE);
+                create_task.setVisibility(View.GONE);
+                cancel.setVisibility(View.GONE);
+            }
+        });
+
+        create_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String given_project_name = project_name_edit_text.getText().toString();
+                String given_task_name = task_name_edit_text.getText().toString();
+
+
+                //Checks if the message has anything.
+                if (given_project_name.length() == 0 || given_task_name.length() == 0) {
+                    return;
+                }
+
+                TaskManager.CreateTask(given_task_name, given_project_name);
+
+                //TODO Algo tiene que pasar en el layout para que se actualice con la nueva task creada
+
+                project_name_edit_text.setVisibility(View.GONE);
+                task_name_edit_text.setVisibility(View.GONE);
+                create_task.setVisibility(View.GONE);
+                cancel.setVisibility(View.GONE);
+
+            }
+        });
+
+
+
+    }
+
 }
