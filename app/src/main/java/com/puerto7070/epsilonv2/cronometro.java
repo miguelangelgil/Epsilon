@@ -2,12 +2,16 @@ package com.puerto7070.epsilonv2;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -26,7 +30,10 @@ public class cronometro implements Runnable{
     private boolean alarm_setted;
     private int alarm_seconds;
     private Context context;
-
+    private int elapsed_minutes;
+    private int elapsed_hours;
+    private boolean advices;
+    private Ringtone r;
     /**
      * Constructor de la clase
      * @param nombre Nombre del cronómetro
@@ -48,6 +55,7 @@ public class cronometro implements Runnable{
         context = ctx;
     }
 
+    //Constructor de alarmas
     public cronometro(String nombre, Context ctx, int alarm)
     {
         salida = "";
@@ -63,6 +71,29 @@ public class cronometro implements Runnable{
         context = ctx;
     }
 
+    //Constructor de termómetros
+    public cronometro(String nombre, TextView etiqueta, Context ctx, boolean adv)
+    {
+
+        etiq = etiqueta;
+        salida = "";
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
+        nombrecronometro = nombre;
+        escribirenUI = new Handler();
+        pausado = Boolean.FALSE;
+        running = Boolean.TRUE;
+        advices = adv;
+
+        context = ctx;
+        Calendar calendar = Calendar.getInstance();
+        Log.d("EEEEEEEEEEE", String.valueOf((calendar.get(Calendar.HOUR_OF_DAY))));
+        Log.d("EEEEEEEEEEE", String.valueOf((calendar.get(Calendar.SECOND))));
+        Log.d("EEEEEEEEEEE", String.valueOf((calendar.get(Calendar.MINUTE))));
+
+        r = RingtoneManager.getRingtone(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
+    }
 
     @Override
     /**
@@ -83,11 +114,15 @@ public class cronometro implements Runnable{
                     {
                         segundos = 0;
                         minutos++;
+                        if(advices)
+                            elapsed_minutes++;
                     }
                     if(minutos == 60)
                     {
                         minutos = 0;
                         horas++;
+                        if(advices)
+                            elapsed_hours++;
                     }
                     // Formateo la salida
                     salida += "0";
@@ -124,6 +159,13 @@ public class cronometro implements Runnable{
                         }
                     }
 
+                    if(advices)
+                    {
+                        if(segundos == 5)
+                            RingTheAlarm();
+
+
+                    }
 
                     if(alarm_setted)
                     {
@@ -145,7 +187,15 @@ public class cronometro implements Runnable{
         }
     }
 
+    public void RingTheAlarm()
+    {
 
+        r.play();
+    }
+
+    public void PauseTheAlarm(){
+        r.stop();
+    }
     public void SetAlarm(int seconds)
     {
         alarm_setted = Boolean.TRUE;

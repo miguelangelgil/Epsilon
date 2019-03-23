@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -40,7 +41,7 @@ public class MainActivity extends Activity implements Listener{
 
     public EditText mEtMessage;
     public Button mBtRead;
-
+    public TextView tViCrono;
     private NFCReadFragment mNfcReadFragment;
 
     private boolean isDialogDisplayed = false;
@@ -104,8 +105,7 @@ public class MainActivity extends Activity implements Listener{
 
         //endregion
 
-
-
+        tViCrono = findViewById(R.id.cronometro);
 
 
     }
@@ -123,7 +123,7 @@ public class MainActivity extends Activity implements Listener{
         mEtAlarmSeconds = (EditText) findViewById(R.id.et_seconds);
         mBtSetAlarm = (Button) findViewById(R.id.bt_seconds);
 
-        mBtSetAlarm.setOnClickListener(view -> setAlarm(Integer.parseInt(mEtAlarmSeconds.getText().toString())));
+        mBtSetAlarm.setOnClickListener(view -> startCrono());//setAlarm(Integer.parseInt(mEtAlarmSeconds.getText().toString())));
 
     }
 
@@ -141,6 +141,12 @@ public class MainActivity extends Activity implements Listener{
             cronometro cron = new cronometro("cronometro", this, seconds);
             new Thread(cron).start();
         }
+    }
+
+    private void startCrono()
+    {
+        my_cronometro = new cronometro("Nombre del cronómetro", tViCrono, this, true);
+        new Thread(my_cronometro).start();
     }
 
     public void sendNotification(View view) {
