@@ -91,13 +91,15 @@ public class MainActivity extends Activity implements Listener{
 
 //endregion
 
+    Usuario my_usuario;
+
     TextView cronometro = null;
     private boolean detectar_distancia_nfc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        my_usuario = new Usuario("Pepa Suarez", "puerto7070", "pepa.suarez@gmail.com");
         setContentView(R.layout.activity_main);
         cronometro = findViewById(R.id.cronometro);
         my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
