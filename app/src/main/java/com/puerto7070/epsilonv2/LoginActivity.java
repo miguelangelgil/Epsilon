@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import android.app.Activity;
@@ -67,12 +68,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    Usuario my_usuario = null;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        my_usuario = new Usuario("Pepa Suarez", "puerto7070", "pepa.suarez@gmail.com");
 
 
         setContentView(R.layout.activity_login);
@@ -189,17 +193,60 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+
+            new Handler().postDelayed(new Runnable(){
+                public void run(){
+
+                    //----------------------------
+                    showProgress(false);
+                    finish();
+                    //----------------------------
+
+                }
+            }, 5000); //5000 millisegundos = 5 segundos.
+
+            if(my_usuario.Check_correo(email))
+            {
+                if(my_usuario.Check_clave(password))
+                {
+                    // Show a progress spinner, and kick off a background task to
+                    // perform the user login attempt.
+                    Toast toast =
+                            Toast.makeText(this,
+                                    "correcto!", Toast.LENGTH_SHORT);
+
+                    toast.show();
+
+
+                    showProgress(true);
+                    mAuthTask = new UserLoginTask(email, password);
+                    mAuthTask.execute((Void) null);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+
+                }else
+                    {
+                        Toast toast =
+                                Toast.makeText(this,
+                                        "La contraseña o el correo no es correcto", Toast.LENGTH_SHORT);
+
+                        toast.show();
+
+                    }
+            }else
+                {
+                    Toast toast =
+                            Toast.makeText(this,
+                                    "La contraseña o el correo no es correcto", Toast.LENGTH_SHORT);
+
+                    toast.show();
+
+                }
+
 
         }
     }
-
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic

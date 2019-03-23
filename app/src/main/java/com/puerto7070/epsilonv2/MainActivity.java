@@ -2,6 +2,8 @@ package com.puerto7070.epsilonv2;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
@@ -11,12 +13,11 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,8 +32,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.FirebaseApp;
 
-import org.w3c.dom.Text;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -46,13 +45,12 @@ public class MainActivity extends Activity implements Listener{
     public static final String TAG = MainActivity.class.getSimpleName();
 
     public EditText mEtMessage;
+    public Button mBtRead;
     public TextView tViCrono;
     private NFCReadFragment mNfcReadFragment;
 
     private boolean isDialogDisplayed = false;
     private boolean isWrite = false;
-
-    private LinearLayout tasksView;
 
     private NfcAdapter mNfcAdapter;
 
@@ -93,15 +91,19 @@ public class MainActivity extends Activity implements Listener{
 
 //endregion
 
+    Usuario my_usuario;
+
     TextView cronometro = null;
+    private boolean detectar_distancia_nfc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        my_usuario = new Usuario("Pepa Suarez", "puerto7070", "pepa.suarez@gmail.com");
         setContentView(R.layout.activity_main);
         cronometro = findViewById(R.id.cronometro);
         my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();
+        my_cronometro.pause();
         //region Control de tiempo
         //my_control_tiempo = new control_tiempo(my_cronometro, getApplicationContext());
         //new Thread(my_control_tiempo).start();
@@ -129,16 +131,16 @@ public class MainActivity extends Activity implements Listener{
 
 
     }
-    public void Active_cronometro(){ if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}
-    public void Desactive_cronometro(){my_cronometro.pause();}
+    public void Active_cronometro(){ if(detectar_distancia_nfc){if(my_cronometro==null){ my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this); new Thread(my_cronometro).start();}else{my_cronometro.pause();}}}
+    public void Desactive_cronometro(){if(detectar_distancia_nfc){my_cronometro.pause();}}
 
     //region Metodos NFC
     private void initViews() {
 
-        tasksView = findViewById(R.id.tasks_layout);
-
         mEtMessage = (EditText) findViewById(R.id.et_message);
+        mBtRead = (Button) findViewById(R.id.btn_read);
 
+        mBtRead.setOnClickListener(view -> showReadFragment());
 
         mEtAlarmSeconds = (EditText) findViewById(R.id.et_seconds);
         mBtSetAlarm = (Button) findViewById(R.id.bt_seconds);
@@ -354,6 +356,7 @@ public class MainActivity extends Activity implements Listener{
         create_task            = (Button) findViewById(R.id.create_task_button);
         cancel                 = (Button) findViewById(R.id.cancel);
 
+        mBtRead.setOnClickListener(view -> showReadFragment());
         open_create_task_menu.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -389,7 +392,7 @@ public class MainActivity extends Activity implements Listener{
                 }
 
                 TaskManager.CreateTask(given_task_name, given_project_name);
-                tasksView.addView(CreateTaskView(given_task_name, given_project_name));
+
                 //TODO Algo tiene que pasar en el layout para que se actualice con la nueva task creada
 
                 project_name_edit_text.setVisibility(View.GONE);
@@ -404,27 +407,4 @@ public class MainActivity extends Activity implements Listener{
 
     }
 
-    private LinearLayout CreateTaskView(String task, String project)
-    {
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        TextView name = new TextView(this);
-        TextView projekt = new TextView(this);
-        TextView hours = new TextView(this);
-
-        name.setTextColor(Color.BLACK);
-        name.setTextSize(20);
-        name.setText(task);
-        projekt.setText(project);
-        hours.setText(( String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).hours_worked_on) +
-                "h " + String.valueOf(TaskManager.uncompleted_task.get(TaskManager.uncompleted_task.size()-1).minutes_worked_on) + "min"));
-
-
-        layout.addView(name,0);
-        layout.addView(projekt, 1);
-        layout.addView(hours, 2);
-        Log.d("EEEEEEEEEEE", String.valueOf(layout.getChildCount()));
-        return layout;
-    }
 }
