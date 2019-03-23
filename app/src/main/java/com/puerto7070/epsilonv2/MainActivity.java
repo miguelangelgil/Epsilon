@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,7 +62,9 @@ public class MainActivity extends Activity implements Listener{
 
 
     cronometro my_cronometro;
-
+    View info_layout;
+    Button mBtShowInfo;
+    Button mBtHideInfo;
 
     //region Variables Proximidad
     SensorManager sensorManager = null;
@@ -114,6 +118,53 @@ public class MainActivity extends Activity implements Listener{
 
         mBtSetAlarm.setOnClickListener(view -> startCrono());//setAlarm(Integer.parseInt(mEtAlarmSeconds.getText().toString())));
 
+        info_layout = findViewById(R.id.info_layout);
+        mBtShowInfo = findViewById(R.id.bt_show_info);
+
+        mBtShowInfo.setOnClickListener(view -> showInfo());
+
+        mBtHideInfo = findViewById(R.id.bt_hide_info);
+
+        mBtHideInfo.setOnClickListener(view -> hideInfo());
+    }
+
+    private void showInfo()
+    {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_enter);
+        //use this to make it longer:  animation.setDuration(1000);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                info_layout.setVisibility(View.VISIBLE);
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //info_layout.setVisibility(View.GONE);
+            }
+        });
+        info_layout.startAnimation(animation);
+    }
+
+    private void hideInfo()
+    {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_exit);
+        //use this to make it longer:  animation.setDuration(1000);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                info_layout.setVisibility(View.GONE);
+            }
+        });
+        info_layout.startAnimation(animation);
     }
 
     private void initNFC(){

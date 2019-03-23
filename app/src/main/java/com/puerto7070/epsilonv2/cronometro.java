@@ -139,6 +139,7 @@ public class cronometro implements Runnable{
                         salida += "0";
                     }
                     salida += segundos;
+
                     // Modifico la UI
                     if(etiq != null)
                     {
@@ -189,13 +190,14 @@ public class cronometro implements Runnable{
 
     public void RingTheAlarm()
     {
-
         r.play();
     }
 
     public void PauseTheAlarm(){
         r.stop();
     }
+
+
     public void SetAlarm(int seconds)
     {
         alarm_setted = Boolean.TRUE;

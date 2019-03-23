@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -7,54 +8,96 @@
     android:gravity="center"
     tools:context="com.puerto7070.epsilonv2.MainActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/cronometro"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_message"
+            <TextView
+                android:id="@+id/cronometro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_message" />
+
+            <Button
+                android:id="@+id/btn_write"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_write_tag" />
+
+            <Button
+                android:id="@+id/btn_read"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_read_tag" />
+
+            <EditText
+                android:id="@+id/et_seconds"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:hint="Seconds"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:hint="@string/hint_message"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/bt_seconds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SET ALARM (SECONDS)" />
+
+            <Button
+                android:id="@+id/bt_show_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ShowInfo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/info_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_message" />
+            android:layout_height="match_parent"
+            android:background="@drawable/background_gradiante_white"
+            android:orientation="vertical"
+            android:translationX="-80dp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteY="372dp">
 
-        <Button
-            android:id="@+id/btn_write"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/message_write_tag" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:src="@tools:sample/avatars[6]" />
 
-        <Button
-            android:id="@+id/btn_read"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/message_read_tag" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
-        <EditText
-            android:id="@+id/et_seconds"
-            android:layout_width="match_parent"
-            android:layout_height="82dp"
-            android:hint="Seconds"
-            android:inputType="number" />
+            <Button
+                android:id="@+id/bt_hide_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HideInfo" />
 
-        <EditText
-            android:id="@+id/et_message"
-            android:layout_width="match_parent"
-            android:layout_height="82dp"
-            android:hint="@string/hint_message"
-            android:inputType="number" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/bt_seconds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SET ALARM (SECONDS)" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>
