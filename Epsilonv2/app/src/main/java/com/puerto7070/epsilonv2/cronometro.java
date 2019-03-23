@@ -1,8 +1,15 @@
 package com.puerto7070.epsilonv2;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 public class cronometro implements Runnable{
@@ -15,12 +22,17 @@ public class cronometro implements Runnable{
     private Boolean pausado; // Para pausar el cronómetro
     private String salida; // Salida formateada de los datos del cronómetro
 
+    private boolean running;
+    private boolean alarm_setted;
+    private int alarm_seconds;
+    private Context context;
+
     /**
      * Constructor de la clase
      * @param nombre Nombre del cronómetro
      * @param etiqueta Etiqueta para mostrar información
      */
-    public cronometro(String nombre, TextView etiqueta)
+    public cronometro(String nombre, TextView etiqueta, Context ctx)
     {
         etiq = etiqueta;
         salida = "";
@@ -30,7 +42,27 @@ public class cronometro implements Runnable{
         nombrecronometro = nombre;
         escribirenUI = new Handler();
         pausado = Boolean.FALSE;
+        alarm_setted = Boolean.FALSE;
+        running = Boolean.TRUE;
+        alarm_seconds = 0;
+        context = ctx;
     }
+
+    public cronometro(String nombre, Context ctx, int alarm)
+    {
+        salida = "";
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
+        nombrecronometro = nombre;
+        escribirenUI = new Handler();
+        pausado = Boolean.FALSE;
+        alarm_setted = Boolean.TRUE;
+        running = Boolean.TRUE;
+        alarm_seconds = alarm;
+        context = ctx;
+    }
+
 
     @Override
     /**
@@ -40,7 +72,7 @@ public class cronometro implements Runnable{
     {
         try
         {
-            while(Boolean.TRUE)
+            while(running)
             {
                 Thread.sleep(1000);
                 salida = "";
@@ -73,20 +105,36 @@ public class cronometro implements Runnable{
                     }
                     salida += segundos;
                     // Modifico la UI
-                    try
+                    if(etiq != null)
                     {
-                        escribirenUI.post(new Runnable()
+                        try
                         {
-                            @Override
-                            public void run()
+                            escribirenUI.post(new Runnable()
                             {
-                                etiq.setText(salida);
-                            }
-                        });
+                                @Override
+                                public void run()
+                                {
+                                    etiq.setText(salida);
+                                }
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
+                        }
                     }
-                    catch (Exception e)
+
+
+                    if(alarm_setted)
                     {
-                        Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
+                        alarm_seconds--;
+                        if(alarm_seconds == 0)
+                        {
+                            alarm_setted = Boolean.FALSE;
+                            System.exit(0);
+                            running = Boolean.FALSE;
+                        }
+
                     }
                 }
             }
@@ -95,6 +143,13 @@ public class cronometro implements Runnable{
         {
             Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + ": " + e.toString());
         }
+    }
+
+
+    public void SetAlarm(int seconds)
+    {
+        alarm_setted = Boolean.TRUE;
+        alarm_seconds = seconds;
     }
 
     public void reiniciar()
