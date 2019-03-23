@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/_0007_fondo_app"
+    android:background="@drawable/fondoapp"
     android:gravity="center"
     tools:context="com.puerto7070.epsilonv2.MainActivity">
 
@@ -26,7 +26,7 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:src="@drawable/_0004_icon_profile" />
+                tools:src="@drawable/iconprofile" />
 
             <TextView
                 android:id="@+id/cronometro"
@@ -192,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="80dp"
                         android:visibility="visible"
-                        tools:src="@drawable/_0004_icon_profile" />
+                        tools:src="@drawable/iconprofile" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -241,7 +241,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/8j"
+                        android:id="@+id/j8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Fix movement"
