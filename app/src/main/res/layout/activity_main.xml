@@ -26,6 +26,10 @@
                 android:id="@+id/imageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:adjustViewBounds="false"
+                android:background="@android:color/transparent"
                 tools:src="@drawable/iconprofile" />
 
             <TextView
@@ -35,22 +39,13 @@
 
             <Button
                 android:id="@+id/create_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="95dp"
+                android:layout_height="96dp"
+                android:layout_marginLeft="40dp"
+                android:height="20dp"
+                android:background="@drawable/nuevatareaboton"
+                android:minHeight="10dp"
                 android:text="+" />
-
-            <EditText
-                android:id="@+id/et_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_message" />
-
-            <EditText
-                android:id="@+id/et_seconds"
-                android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:hint="Seconds"
-                android:inputType="number" />
 
             <EditText
                 android:id="@+id/et_message2"
@@ -60,18 +55,13 @@
                 android:inputType="number" />
 
             <Button
-                android:id="@+id/bt_seconds"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SET ALARM (SECONDS)" />
-
-            <Button
                 android:id="@+id/bt_show_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ShowInfo" />
 
             <LinearLayout
+                android:id="@+id/new_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -194,18 +184,42 @@
                         android:visibility="visible"
                         tools:src="@drawable/iconprofile" />
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <ImageButton
+                        android:id="@+id/imageButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="135dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/raleway_medium"
-                        android:text="Pepa Suárez"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        android:minWidth="50dp"
+                        android:minHeight="50dp"
+                        android:src="@drawable/campana" />
+
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="108dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="Pepa Suárez"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="20dp" />
 
             <Button
                 android:id="@+id/bt_hide_info"
@@ -326,6 +340,25 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_message" />
+
+        <EditText
+            android:id="@+id/et_seconds"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:hint="Seconds"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/bt_seconds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SET ALARM (SECONDS)" />
     </RelativeLayout>
 
 </ScrollView>
