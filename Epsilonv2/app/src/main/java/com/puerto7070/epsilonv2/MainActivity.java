@@ -8,7 +8,9 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +20,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationCompat;
+
+import com.google.firebase.FirebaseApp;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 
 public class MainActivity extends Activity implements Listener{
@@ -38,6 +50,17 @@ public class MainActivity extends Activity implements Listener{
 
     //endregion
 
+    // region Variables CRONO
+
+    private EditText mEtAlarmSeconds;
+    public Button mBtSetAlarm;
+    private List<cronometro> cronometros;
+    //endregion
+
+
+    cronometro my_cronometro;
+
+
     //region Variables Proximidad
     SensorManager sensorManager = null;
 
@@ -53,7 +76,9 @@ public class MainActivity extends Activity implements Listener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
 
         //region NFC
         initViews();
@@ -72,7 +97,7 @@ public class MainActivity extends Activity implements Listener{
 
         TextView cronometro = findViewById(R.id.cronometro);
 
-        cronometro my_cronometro = new cronometro("Nombre del cronómetro", cronometro);
+        my_cronometro = new cronometro("Nombre del cronómetro", cronometro, this);
         new Thread(my_cronometro).start();
     }
 
@@ -83,6 +108,12 @@ public class MainActivity extends Activity implements Listener{
         mBtRead = (Button) findViewById(R.id.btn_read);
 
         mBtRead.setOnClickListener(view -> showReadFragment());
+
+        mEtAlarmSeconds = (EditText) findViewById(R.id.et_seconds);
+        mBtSetAlarm = (Button) findViewById(R.id.bt_seconds);
+
+        mBtSetAlarm.setOnClickListener(view -> setAlarm(Integer.parseInt(mEtAlarmSeconds.getText().toString())));
+
     }
 
     private void initNFC(){
@@ -90,6 +121,42 @@ public class MainActivity extends Activity implements Listener{
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
     }
 
+    private void setAlarm(int seconds)
+    {
+        final String TAG = "MyActivity";
+        Log.d(TAG, String.valueOf(seconds));
+        if(seconds > 0)
+        {
+            cronometro cron = new cronometro("cronometro", this, seconds);
+            new Thread(cron).start();
+        }
+    }
+
+    public void sendNotification(View view) {
+
+        //Get an instance of NotificationManager//
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
+
+
+        // Gets an instance of the NotificationManager service//
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+
+        // When you issue multiple notifications about the same type of event,
+        // it’s best practice for your app to try to update an existing notification
+        // with this new information, rather than immediately creating a new notification.
+        // If you want to update this notification at a later date, you need to assign it an ID.
+        // You can then use this ID whenever you issue a subsequent notification.
+        // If the previous notification is still visible, the system will update this existing notification,
+        // rather than create a new one. In this example, the notification’s ID is 001//
+
+        mNotificationManager.notify(001, mBuilder.build());
+    }
 
     private void showReadFragment() {
 
@@ -175,7 +242,7 @@ public class MainActivity extends Activity implements Listener{
 
             //TODO Qué pasa cuando se detecta el NFC
 
-            /*
+
             if (isDialogDisplayed) {
 
                 if (isWrite) {
@@ -187,7 +254,7 @@ public class MainActivity extends Activity implements Listener{
                     mNfcReadFragment = (NFCReadFragment)getFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
                     mNfcReadFragment.onNfcDetected(ndef);
                 }
-            }*/
+            }
         }
 
         //endregion
